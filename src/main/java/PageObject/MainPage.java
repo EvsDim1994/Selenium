@@ -26,6 +26,8 @@ public class MainPage {
     private By inputOrderNumber = By.xpath(".//input[contains(@class,'Input_Input__1iN_Z')]");
     private By buttonGo = By.cssSelector(".Header_Button__28dPO");
     private By notFound = By.xpath(".//img[@alt='Not found']");
+    private By buttonTop = By.xpath(".//button[@class='Button_Button__ra12g']");
+    private By buttonDown = By.className("Button_Middle__1CSJM");
 
 
     public void clickOnCookie(){
@@ -65,7 +67,7 @@ public class MainPage {
 
     public void inputOrderNumber(String number){
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.IMPLICIT_WAIT))
-                .until(ExpectedConditions.presenceOfElementLocated(inputOrderNumber));
+                .until(ExpectedConditions.elementToBeClickable(inputOrderNumber));
         driver.findElement(inputOrderNumber).sendKeys(number);
     }
 
@@ -77,7 +79,7 @@ public class MainPage {
 
     public void checkOrderError(){
         new WebDriverWait(driver, Duration.ofSeconds(EnvConfig.IMPLICIT_WAIT))
-                .until(ExpectedConditions.presenceOfElementLocated(notFound));
+                .until(ExpectedConditions.visibilityOfElementLocated(notFound));
 
         assertTrue(driver.findElement(notFound).isDisplayed());
     }
@@ -99,7 +101,11 @@ public class MainPage {
         assertEquals(url, driver.getCurrentUrl());
     }
 
-    public void clickOrderButton(By celector){
-        driver.findElement(celector).click();
+    public void clickOrderButton(String button){
+        if (button.equalsIgnoreCase("buttonTop"))
+            driver.findElement(buttonTop).click();
+        else if(button.equalsIgnoreCase("buttonDown")){
+            driver.findElement(buttonDown).click();
+        }
     }
 }

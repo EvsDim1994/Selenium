@@ -27,7 +27,7 @@ public class AdditionalTests {
         mainPage.clickOnCookie();
 
         // нажатие на кнопку заказать в верхней части страницы
-        mainPage.clickOrderButton(By.xpath(".//button[@class='Button_Button__ra12g']"));
+        mainPage.clickOrderButton("buttonTop");
 
         //ожидание появления окна для оформления заказа
         ForWhoScooter forWhoScooter = new ForWhoScooter(driver);

@@ -8,14 +8,29 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 @RunWith(Parameterized.class)
 public class MakeOrderTests {
-    private final By celector;
+    private final String button;
     private final String colorName;
     private final String textComment;
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String phone;
 
-    public MakeOrderTests(By celector, String colorName, String textComment) {
-        this.celector = celector;
+
+    public MakeOrderTests(String button,
+                          String colorName,
+                          String textComment,
+                          String name,
+                          String surname,
+                          String address,
+                          String phone) {
+        this.button = button;
         this.colorName = colorName;
         this.textComment = textComment;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.phone = phone;
     }
 
     @Rule
@@ -32,8 +47,8 @@ public class MakeOrderTests {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][] {
-                {By.xpath(".//button[@class='Button_Button__ra12g']"), "black", "Оставить у подъезда"},
-                {By.className("Button_Middle__1CSJM"), "grey", ""}
+                {"buttonTop","black", "Оставить у подъезда", "Анатолий", "Грецин", "Москва, Лужники 12", "89777777777"},
+                {"buttonDown","grey", "", "Дмитрий", "Евсюков", "Москва, Сокольники 11", "89884900639"}
         };
     }
 
@@ -46,15 +61,15 @@ public class MakeOrderTests {
         mainPage.clickOnCookie();
 
         // нажатие на кнопку заказать в верхней части страницы
-        mainPage.clickOrderButton(celector);
+        mainPage.clickOrderButton(button);
 
         ForWhoScooter forWhoScooter = new ForWhoScooter(driver);
 
         forWhoScooter.inputWhoScooterForm(
-                "Дмитрий",
-                "Евсюков",
-                "Москва, Сокольники 11",
-                "89884900639");
+                name,
+                surname,
+                address,
+                phone);
 
         // нажатие кнопки далее
         var rentPage = forWhoScooter.clickNextButton();
