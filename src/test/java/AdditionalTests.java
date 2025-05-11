@@ -2,7 +2,6 @@ import PageObject.EnvConfig;
 import PageObject.ForWhoScooter;
 import PageObject.MainPage;
 import org.junit.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 
